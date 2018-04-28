@@ -13,7 +13,7 @@ class Input extends React.Component<any, any>{
     }
 
     render(){
-        let { append, prepend, onChange, className, error, ...props } = this.props
+        let { append, prepend, onChange, className, containerClassName, error, ...props } = this.props
         let error_tag = null
         append = append ? <div className="input-group-append">{append}</div> : null
         prepend = prepend ? <div className="input-group-prepend">{prepend}</div> : null
@@ -24,7 +24,7 @@ class Input extends React.Component<any, any>{
         className = className && 'form-control ' + className || 'form-control'
         let input = <input {...props} className={className} value={this.props.value} ref={this.chat_input_ref} onChange={this.onChange} />
 
-        input = prepend || append ? <div className="input-group">{prepend}{input}{append}{error_tag}</div> : <>{input}{error_tag}</>
+        input = prepend || append ? <div className={"input-group"+(this.props.containerClassName&&' '+this.props.containerClassName||'')}>{prepend}{input}{append}{error_tag}</div> : <>{input}{error_tag}</>
         return <>{input}</>
     }
 }
