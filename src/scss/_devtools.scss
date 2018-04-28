@@ -1,0 +1,31 @@
+.devtools-panel h1, .devtools-panel h2, .devtools-panel h3, .devtools-panel h4, .devtools-panel h5, .devtools-panel h6{
+    text-transform: inherit;
+}
+.devtools-panel {
+    background-color: rgba(255, 255, 255, 1);
+    // position:fixed;
+    // right:0;
+    // height:100%;
+    // overflow-y: scroll;
+    // height: 100%;
+}
+
+.template {
+    transition: background-color .15s ease-out, box-shadow .15s ease-out;
+    background-color: "transparent";
+    box-shadow: 0;
+}
+.hover-template{
+    transition: background-color .15s ease-out, box-shadow .15s ease-out;
+    background-color: rgba(127, 127, 127, 0.1);
+    box-shadow: 0 0 15px 15px rgba(127, 127, 127, 0.1);
+}
+.devtools-panel .tooltip-inner {
+    max-width: 480px;
+    text-align: left;
+}
+
+.component-descriptor{
+    position: absolute;
+}
+
