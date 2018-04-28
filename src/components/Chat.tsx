@@ -3,9 +3,12 @@ import Component from '../_engine/components/Component'
 import { connect, Dispatch } from 'react-redux'
 import ChatBox from './ChatBox'
 import socket from '../_engine/modules/socket'
+import store from '../store/'
+import * as actions from '../actions/'
 
-const display_message = (message: any) => {
-    return <div className={`message ${message.local && 'local' || 'remote'}`} key={message.id}>
+export const Message = (props: any) => {
+    const { message } = props
+    return <div className={`message ${message.local && 'local' || (message.from_server && 'from-server' || 'remote')}`}>
         <div className="message-content">
             <div className="timestamp">{message.id}</div>
             <div className="username">{message.username}</div>
@@ -23,12 +26,17 @@ export const checkScroll = function(this: any) {
     }
 }
 
-class Chat extends Component<any>{
+export class Chat extends Component<any>{
     state:any = {}
     checkScrollRef: any
 
     static registerUser = (username: string) => {
-        socket.emit({ cmd: 'register_user', params: { username } })
+        socket.post({ cmd: 'REGISTER_USER', params: { username } })
+    }
+    
+    static getUsersList = () => {
+        socket.get({ cmd: 'GET_USER_LIST' })
+        .then((result: any) => store.dispatch(actions.set_user_list(result.data||[])))
     }
 
     constructor(props: any){
@@ -38,7 +46,6 @@ class Chat extends Component<any>{
 
     checkScroll = function(this: any) {
         if((window.innerHeight + window.pageYOffset) === document.body.scrollHeight){
-            console.log('bingo')
             this.setState({ new_messages: false })
             document.removeEventListener('scroll', checkScroll)
         }
@@ -46,6 +53,7 @@ class Chat extends Component<any>{
 
     componentDidMount(){
         Chat.registerUser(this.props.user.username)
+        Chat.getUsersList()
     }
 
     getSnapshotBeforeUpdate(prevProps:any, prevState:any) {
@@ -60,9 +68,9 @@ class Chat extends Component<any>{
     componentDidUpdate(prevProps: any, prevState: any, scrollToBottom: boolean){
         const prevLastMessage = !prevProps.message_stack ? null : (prevProps.message_stack && prevProps.message_stack.length && prevProps.message_stack[prevProps.message_stack.length-1] || null)
         const thisLastMessage = !this.props.message_stack ? null : (this.props.message_stack && this.props.message_stack.length && this.props.message_stack[this.props.message_stack.length-1]|| null)
-        console.log(thisLastMessage.username, this.props.user.username)
-        const lastMessageIsMine = () => thisLastMessage.username === this.props.user.username
-        if(!prevLastMessage && thisLastMessage || prevLastMessage.id !== thisLastMessage.id){
+        
+        if((!prevLastMessage && thisLastMessage) || prevLastMessage && prevLastMessage.id !== thisLastMessage.id){
+            const lastMessageIsMine = () => thisLastMessage.username === this.props.user.username
             if(lastMessageIsMine() || scrollToBottom){
                 window.scrollTo(0, document.body.scrollHeight)
             } else {
@@ -73,16 +81,21 @@ class Chat extends Component<any>{
 
     render(){
         return <>
-            {this.state.new_messages && <div id="new-messages-icon">NEW MESSAGES!</div>}
             <div id="chat-view-container">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            {this.props.message_stack && this.props.message_stack.map(display_message)}
+                            {this.props.message_stack && this.props.message_stack.map((message: any) => <Message message={message} key={message.id} />)}
                         </div>
                     </div>
                 </div>
             </div>
+            {this.props.user_list && this.props.user_list.length && 
+                <ul className="list-unstyled user-list">
+                    {this.props.user_list.map((username: string, i: number) => <li key={`${username}_${i}`} className="user d-block badge badge-primary">{username}</li>)}
+                </ul>
+            }
+            {this.state.new_messages && <div id="new-messages-icon"><div className="alert alert-primary" role="alert">NEW MESSAGES!</div></div>}
             <div id="chat-input-container">
                 <div className="container">
                     <div className="row">
@@ -96,9 +109,10 @@ class Chat extends Component<any>{
     }
 }
 
-export function mapStateToProps({ user, message_stack }: any) {
+export function mapStateToProps({ user, user_list, message_stack }: any) {
     return {
         user,
+        user_list,
         message_stack
     }
 }
