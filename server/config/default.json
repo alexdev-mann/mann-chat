@@ -1,0 +1,16 @@
+{
+    "APP_NAME": "Mann chat",
+    "ENV": {
+        "MODE": "dev",
+        "SERVER_NAME": "proxy01",
+        "DNS_HOSTNAME": "local_mann_chat"
+    },
+    "PROXY": {
+        "LISTEN_PORT": 5544
+    },
+    "SSL": {
+        "ENABLED": false,
+        "LISTEN_PORT": 3443
+    },
+    "WWW_PATH": "../src"
+}
