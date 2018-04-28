@@ -39,6 +39,12 @@
     border-bottom-right-radius: $input-border-radius;
 }
 
+#new-messages-icon{
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+}
+
 .message{
     display: flex;
     flex-direction: row;

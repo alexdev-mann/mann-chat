@@ -15,10 +15,33 @@ const display_message = (message: any) => {
     </div>
 }
 
+// Passed this as param because of Typescript
+export const checkScroll = function(this: any) {
+    if((window.innerHeight + window.pageYOffset) === document.body.scrollHeight){
+        this.setState({ new_messages: false })
+        document.removeEventListener('scroll', this.checkScrollRef)
+    }
+}
+
 class Chat extends Component<any>{
+    state:any = {}
+    checkScrollRef: any
 
     static registerUser = (username: string) => {
-        socket.emit({ cmd: 'register_user', params: { username: 'Alex' } })
+        socket.emit({ cmd: 'register_user', params: { username } })
+    }
+
+    constructor(props: any){
+        super(props)
+        this.checkScrollRef = checkScroll.bind(this)
+    }
+
+    checkScroll = function(this: any) {
+        if((window.innerHeight + window.pageYOffset) === document.body.scrollHeight){
+            console.log('bingo')
+            this.setState({ new_messages: false })
+            document.removeEventListener('scroll', checkScroll)
+        }
     }
 
     componentDidMount(){
@@ -37,14 +60,20 @@ class Chat extends Component<any>{
     componentDidUpdate(prevProps: any, prevState: any, scrollToBottom: boolean){
         const prevLastMessage = !prevProps.message_stack ? null : (prevProps.message_stack && prevProps.message_stack.length && prevProps.message_stack[prevProps.message_stack.length-1] || null)
         const thisLastMessage = !this.props.message_stack ? null : (this.props.message_stack && this.props.message_stack.length && this.props.message_stack[this.props.message_stack.length-1]|| null)
-
-        if(!prevLastMessage && thisLastMessage || prevLastMessage.id !== thisLastMessage.id && scrollToBottom){
-            window.scrollTo(0, document.body.scrollHeight)
+        console.log(thisLastMessage.username, this.props.user.username)
+        const lastMessageIsMine = () => thisLastMessage.username === this.props.user.username
+        if(!prevLastMessage && thisLastMessage || prevLastMessage.id !== thisLastMessage.id){
+            if(lastMessageIsMine() || scrollToBottom){
+                window.scrollTo(0, document.body.scrollHeight)
+            } else {
+                this.setState({ new_messages: true }, () => document.addEventListener('scroll', this.checkScrollRef))
+            }
         }
     }
 
     render(){
         return <>
+            {this.state.new_messages && <div id="new-messages-icon">NEW MESSAGES!</div>}
             <div id="chat-view-container">
                 <div className="container">
                     <div className="row">
