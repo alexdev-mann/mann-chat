@@ -1,1 +1,20 @@
+export const APP_CONFIG          = 'APP_CONFIG'
+export type APP_CONFIG           = typeof APP_CONFIG
+export const SEND_MESSAGE        = 'SEND_MESSAGE_TO_SERVER'
+export type SEND_MESSAGE         = typeof SEND_MESSAGE
+export const RECEIVE_MESSAGE     = 'RECEIVE_MESSAGE'
+export type RECEIVE_MESSAGE      = typeof RECEIVE_MESSAGE
+export const SET_USER            = 'SET_USER'
+export type SET_USER             = typeof SET_USER
+export const CLIENT_CONNECTED    = 'CLIENT_CONNECTED'
+export type CLIENT_CONNECTED     = typeof CLIENT_CONNECTED
+export const CLIENT_DISCONNECTED = 'CLIENT_DISCONNECTED'
+export type CLIENT_DISCONNECTED  = typeof CLIENT_DISCONNECTED
+export const SOCKET_RESPONSE     = 'SOCKET_RESPONSE'
+export type SOCKET_RESPONSE      = typeof SOCKET_RESPONSE
+export const SOCKET_REQUEST      = 'SOCKET_REQUEST'
+export type SOCKET_REQUEST       = typeof SOCKET_REQUEST
+export const SOCKET_UPDATE       = 'SOCKET_UPDATE'
+export type SOCKET_UPDATE        = typeof SOCKET_UPDATE
+
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyDfKS8hFCd4GxEeJ6MFOwn30k4h-6DbvhA'
