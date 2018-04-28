@@ -1,3 +1,4 @@
+import * as React from 'react'
 import __socket from '../modules/socket_connector'
 import { SOCKET_REQUEST, SOCKET_RESPONSE, SOCKET_UPDATE } from '../../constants/'
 // import config from '../../config/app'
@@ -91,3 +92,12 @@ const socket = {
     },
 };
 export default socket
+
+export function withSocket<P>(Comp: React.ComponentClass<P> | React.StatelessComponent<P>) {
+    return class extends React.Component<any>{
+        render(): any{
+            const props: any = { ...this.props, socket }
+            return <Comp {...props} />
+        }
+    }
+}
