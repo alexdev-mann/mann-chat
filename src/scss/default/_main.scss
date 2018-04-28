@@ -1,3 +1,74 @@
 @import "./_bootswatch.scss";
 @import "../common";
 @import "~bootstrap/scss/functions";
+
+#root{
+    min-height: 100vh;
+    height: 100vh;
+}
+#login-container{
+    display: flex;
+    height: 100vh;
+}
+#login-container > .row{
+    flex: 1;   
+}
+
+#chat-view-container{
+    width: 100%;
+    padding-bottom: 6rem;
+}
+#chat-input-container{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 6rem;
+    padding-top: 2rem;
+    background-color: theme-color('alt');
+}
+#chat-input{
+    background-color:rgba(white, 0.8);
+    padding: .3rem;
+}
+.input-group .form-control{
+    border-top-left-radius: $input-border-radius;
+    border-bottom-left-radius: $input-border-radius;
+}
+.input-group .input-group-append .btn{
+    border-top-right-radius: $input-border-radius;
+    border-bottom-right-radius: $input-border-radius;
+}
+
+.message{
+    display: flex;
+    flex-direction: row;
+}
+.message-content .username{
+    font-weight: bold;
+    color: black;
+}
+.message-content .timestamp{
+    color: grey;
+    font-size: .6rem;
+}
+
+.message.local{
+    justify-content: flex-end;
+    flex-direction: row;
+}
+.message.remote{
+    justify-content: flex-start;
+}
+.message-content{
+    width: 80%;
+    background-color: lightgrey;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: .7rem;
+}
+.message.local .message-content{
+    background-color: rgba(theme-color('alt'), .3)
+}
+.message.remote .message-content{
+    background-color: rgba(theme-color('primary'), .3)
+}
