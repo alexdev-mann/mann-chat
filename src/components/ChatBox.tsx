@@ -18,7 +18,6 @@ class ChatBox extends Component<any>{
     }
     static sendMessage = (text: string, username: string) => {
         return new Promise((resolve: any, reject: any) => {
-            console.log('emitting')
             const message = ChatBox.createMessage(text, username)
             socket.post({ cmd: constants.SEND_MESSAGE, params: message })
             .then((response: any) => resolve(message))
@@ -26,24 +25,28 @@ class ChatBox extends Component<any>{
     }
     
     onChange = (text: string) => {
-        (typeof text !== 'string' && console.error(this.filename+'.onChange(): param must be a string, it is actually', typeof text, text)) 
+        (typeof text !== 'string' && console.error(this.filename+'.onChange(): param must be a string, it is actually', typeof text, text))
         this.setState({ text })
     }
 
     onSubmit = (e: any) => {
         e.preventDefault()
-        ChatBox.sendMessage(this.state.text, this.props.user.username)
+        this.state.text && ChatBox.sendMessage(this.state.text, this.props.user.username)
         .then((message: any) => {
             this.props.dispatch_message(message)
             this.form_ref.current && this.form_ref.current.reset()
         })
     }
+    
+    onReset = (e: any) => {
+        this.setState({ text: null })
+    }
 
     render(){
-        return <form ref={this.form_ref} onSubmit={this.onSubmit}>
-            <div id="chat-input-group" className="input-group w-100">
-                <Input id="chat-input" className="" autoFocus={true} onChange={this.onChange} value={this.state.value} />
-                <div className="input-group-append"><button className="btn btn-outline-secondary" type="button">Send</button></div>
+        return <form ref={this.form_ref} onSubmit={this.onSubmit} onReset={this.onReset}>
+            <div id="chat-input-group" className="input-group chat-input-group w-100">
+                <Input id="chat-input" autoFocus={true} onChange={this.onChange} value={this.state.value} />
+                <div className="input-group-append"><button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Send</button></div>
             </div>
         </form>
     }
