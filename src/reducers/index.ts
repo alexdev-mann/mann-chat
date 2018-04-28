@@ -5,6 +5,7 @@ import * as constants from '../constants/'
 
 export const rootReducer = combineReducers({
 	user,
+	user_list,
     message_stack,
     app_config,
     router: routerReducer,
@@ -37,6 +38,23 @@ export function user(state: any, action: any){
 	return new_state
 }
 
+export function user_list(state: any, action: any){
+	let new_state
+	switch (action.type) {
+		case constants.SET_USER_LIST:
+			// scoping to allow var declarations
+			{
+				new_state = action.user_list || []
+			}
+			break
+		default:
+			// defaults to empty array
+			new_state = state || []
+			break
+	}
+	return new_state
+}
+
 export function message_stack(state: any, action: any){
 	let new_state
 	switch (action.type) {
@@ -45,7 +63,6 @@ export function message_stack(state: any, action: any){
 			{
 				// shallow copy of the array
 				let stack = [ ...state ]
-				console.log('action', action)
 				// creating message, taking off type from the action object
 				let { type, ...message } = action
 				message.local = 1
@@ -64,6 +81,8 @@ export function message_stack(state: any, action: any){
 				// creating message, taking off type from the action object
 				let { type, ...message } = action
 				message.local = 0
+				// message comes from user or from the machine?
+				message.from_server = action.from_server || undefined
 				message.timestamp = message.timestamp || date.format('now', 'timestamp')
 
 				stack.push(message)

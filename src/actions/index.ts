@@ -20,14 +20,15 @@ export function send_message({ id, text, username }: ISendMessage): sendMessage 
 	}
 }
 
-export interface IReceiveMessage { type: constants.RECEIVE_MESSAGE, id: string, text: string, username: string }
+export interface IReceiveMessage { type: constants.RECEIVE_MESSAGE, id: string, text: string, username: string, from_server?: boolean }
 export type receiveMessage = IReceiveMessage;
-export function receive_message( { id, text, username }: IReceiveMessage ): receiveMessage {
+export function receive_message( { id, text, username, from_server }: IReceiveMessage ): receiveMessage {
 	return {
 		type: constants.RECEIVE_MESSAGE,
 		id,
 		text,
 		username,
+		from_server
 	}
 }
 
@@ -55,5 +56,14 @@ export function client_disconnected( { username }: { username: string } ): clien
 	return {
 		type: constants.CLIENT_DISCONNECTED,
 		username,
+	}
+}
+
+export interface ISetUserList { type: constants.SET_USER_LIST, user_list: any[] }
+export type setUserList = ISetUserList;
+export function set_user_list( user_list : any[] ): setUserList {
+	return {
+		type: constants.SET_USER_LIST,
+		user_list,
 	}
 }

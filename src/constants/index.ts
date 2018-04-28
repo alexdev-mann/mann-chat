@@ -16,5 +16,7 @@ export const SOCKET_REQUEST      = 'SOCKET_REQUEST'
 export type SOCKET_REQUEST       = typeof SOCKET_REQUEST
 export const SOCKET_UPDATE       = 'SOCKET_UPDATE'
 export type SOCKET_UPDATE        = typeof SOCKET_UPDATE
+export const SET_USER_LIST       = 'SET_USER_LIST'
+export type SET_USER_LIST        = typeof SET_USER_LIST
 
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyDfKS8hFCd4GxEeJ6MFOwn30k4h-6DbvhA'
