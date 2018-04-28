@@ -30,11 +30,11 @@
     background-color:rgba(white, 0.8);
     padding: .3rem;
 }
-.input-group .form-control{
+.chat-input-group .form-control{
     border-top-left-radius: $input-border-radius;
     border-bottom-left-radius: $input-border-radius;
 }
-.input-group .input-group-append .btn{
+.chat-input-group .input-group-append .btn{
     border-top-right-radius: $input-border-radius;
     border-bottom-right-radius: $input-border-radius;
 }
@@ -44,7 +44,16 @@
     bottom: 7rem;
     right: 2rem;
 }
+.user-list{
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+}
+.user-list > .user {
+    margin-bottom: .2rem;
+}
 
+// Messages
 .message{
     display: flex;
     flex-direction: row;
@@ -65,8 +74,11 @@
 .message.remote{
     justify-content: flex-start;
 }
+.message.from-server{
+    justify-content: center;
+}
 .message-content{
-    width: 80%;
+    width: 70%;
     background-color: lightgrey;
     padding: 1rem;
     margin: 1rem;
@@ -77,4 +89,12 @@
 }
 .message.remote .message-content{
     background-color: rgba(theme-color('primary'), .3)
+}
+.message.from-server .message-content{
+    width: 100%;
+    background-color: rgba(#eee, .3);
+    color: darkgray
+}
+.message.from-server .message-content .username, .message.from-server .message-content .timestamp{
+    display: none;
 }

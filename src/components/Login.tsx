@@ -68,7 +68,7 @@ class Login extends Component<any>{
             <div className="row align-items-center">
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={this.onSubmit}>
-                        <Input onChange={this.onUsernameChange} defaultValue={this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
+                        <Input onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
                     </form>
                 </div>
             </div>
