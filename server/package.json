@@ -1,0 +1,25 @@
+{
+  "name": "mann-chat-server",
+  "version": "0.1.0",
+  "description": "Simple chat server",
+  "author": "Alex Deveaux",
+  "license": "ISC",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm i && node index.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "compression": "^1.7.1",
+    "config": "^1.29.4",
+    "express": "^4.16.2",
+    "lodash": "^4.17.5",
+    "node-uuid": "^1.4.8",
+    "performance-now": "^2.1.0",
+    "qs": "^6.5.1",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "puppeteer": "^0.13.0"
+  }
+}
