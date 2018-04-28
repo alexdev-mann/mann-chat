@@ -32,6 +32,13 @@ const app = {
                     Promise.all(promise_array).then(() => { roomJoined() })
                 })
             })
+        },
+
+        get_user_name_array(sockets){
+            if(!sockets) return []
+            let value = []
+            Object.keys(sockets).map((key) => { value.push(sockets[key].username) })
+            return value
         }
     }
 }
