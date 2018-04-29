@@ -68,7 +68,7 @@ export class Login extends Component<any>{
                 <div className="col-md-6 offset-md-3">
                     <SVG src="images/logo.svg" alt="Mann chat" id="logo" />
                     <form onSubmit={this.onSubmit} className="pb-10">
-                        <Input className="form-control" onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user && this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-primary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
+                        <Input id="username-input-text" className="form-control" onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user && this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-primary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
                     </form>
                 </div>
             </div>
