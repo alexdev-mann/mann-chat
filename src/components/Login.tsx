@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import Component from '../_engine/components/Component'
 import Input from '../_engine/components/Input'
+import SVG from '../_engine/components/SVG'
 
 /**
  * Small form definition structure, should be abstracted in a <Form /> component
@@ -65,7 +66,8 @@ export class Login extends Component<any>{
         return <div id="login-container" className="container">
             <div className="row align-items-center">
                 <div className="col-md-6 offset-md-3">
-                    <form onSubmit={this.onSubmit}>
+                    <SVG src="images/logo.svg" alt="Mann chat" id="logo" />
+                    <form onSubmit={this.onSubmit} className="pb-10">
                         <Input className="form-control" onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user && this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-primary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
                     </form>
                 </div>
