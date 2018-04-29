@@ -12,6 +12,7 @@ LISTEN_PORT              = use_ssl_protocol ? SSL_LISTEN_PORT: LISTEN_PORT
 const WWW_PATH           = tools.get_conf("WWW_PATH", "./site")
 const server             = require('./app/server')
 const io                 = require('./app/io')
+const package_json       = require('./package.json');
 
 // Checks integrity of the app
 // tools.check_folders([  ])
@@ -65,11 +66,21 @@ io.on('connection', function (socket) {
     })
 
     socket.on('get', (req, callback) => {
-        switch(true){
-            case (req.cmd === 'GET_USER_LIST'):
+        // switch true, we're able to check for prefixes or suffixes if we choose to implement that logic, we could just switch(req.cmd) here
+        if(req.cmd){
+            switch(true){
+                case (req.cmd === 'GET_USER_LIST'):
                 console.log(socket.username, 'would like to get the list of users')
                 callback({ success: true, data: app.socket.get_user_name_array(io.sockets.sockets) })
                 break
+                case (req.cmd === 'GLOBALS'):
+                callback({ success: true, data: { server_name: tools.get_conf('APP_NAME'), version: package_json.version } })
+                break
+            }
+        } else {
+            let error = 'get command error: no cmd param specified.'
+            console.error(error)
+            callback({ success: false, data: { error } })
         }
     })
 
