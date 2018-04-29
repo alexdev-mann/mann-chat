@@ -6,6 +6,7 @@ import Route from '../_engine/components/Route'
 import { Switch } from 'react-router-dom'
 import Component from '../_engine/components/Component'
 import Globals from '../_engine/components/Globals'
+import SVG from '../_engine/components/SVG'
 
 
 class App extends Component<any> {
@@ -24,10 +25,13 @@ class App extends Component<any> {
     render(){
         return <>
             <Globals render={ (globals: any) =>
-                <Switch>
-                    <Route path="/" exact globals={globals} component={Login} />
-                    <Route path="/chat" exact globals={globals} component={Chat} />
-                </Switch>
+                <>
+                    <Switch>
+                        <Route path="/" exact globals={globals} component={Login} />
+                        <Route path="/chat" exact globals={globals} component={Chat} />
+                    </Switch>
+                    <SVG src="images/change.svg" id="change-background-btn" onClick={this.setBackground} />
+                </>
             } />
         </>
     }

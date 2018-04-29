@@ -43,6 +43,18 @@ body{
     background-color: theme-color('alt');
 }
 
+#change-background-btn{
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: 20px;
+    cursor: pointer;
+    opacity: .85;
+}
+#change-background:hover{
+    opacity: 1;
+}
+
 #app-info{
     position: fixed;
     bottom: .5rem;
