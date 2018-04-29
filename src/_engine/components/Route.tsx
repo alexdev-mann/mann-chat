@@ -11,8 +11,8 @@ class Route extends Component<any>{
     render(){
         const { component: Comp, ...rest } = this.props
         return <ReactRoute {...rest} render={(props: any) => (
-            <Comp {...props} />
-        )} />
+            <Comp {...rest} {...props} />
+        ) } />
     }
 }
 export default Route
