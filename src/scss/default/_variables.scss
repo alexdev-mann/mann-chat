@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/functions";
 
 $body-bg   : white;
-$body-color: darkslategray;
+$body-color: #1D3557;
 
 $spacer: 1rem !default;
 
@@ -9,11 +9,15 @@ $font-family-sans-serif: 		sans-serif;
 $font-family-base:            	$font-family-sans-serif !default;
 $font-weight-light: 			300;
 
+// #F1FAEE
+// #A8DADC
+// #457B9D
 $theme-colors: (
-	"primary": #6699CC,
-	"success": #03CEA4,
+	"primary": #E63946,
+	"success": #1D3557,
     "danger": #FF6666,
-    "alt": #FFF275
+    "alt": #A8DADC,
+    "alt-light": #F1FAEE,
 );
 
 $table-head-bg:               theme-color("alt") !default;

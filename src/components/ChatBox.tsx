@@ -36,7 +36,7 @@ class ChatBox extends Component<any>{
                 <form ref={this.form_ref} onSubmit={this.onSubmit} onReset={this.onReset}>
                     <div id="chat-input-group" className="input-group chat-input-group w-100">
                         <Input id="chat-input" autoFocus={true} onChange={this.onChange} value={this.state.value} />
-                        <div className="input-group-append"><button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Send</button></div>
+                        <div className="input-group-append"><button className="btn btn-primary" type="button" onClick={this.onSubmit}>Send</button></div>
                     </div>
                 </form>
                 <div id="app-info">{globals.server_name} v.{globals.version}</div>
