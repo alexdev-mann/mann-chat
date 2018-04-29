@@ -3,13 +3,14 @@ import Component from '../_engine/components/Component'
 import { connect, Dispatch } from 'react-redux'
 import ChatBox from './ChatBox'
 import chat from '../modules/chat'
+import SVG from '../_engine/components/SVG'
 
 export const Message = (props: any) => {
     const { message } = props
     return <div className={`message ${message.local && 'local' || (message.from_server && 'from-server' || 'remote')}`}>
         <div className="message-content">
-            <div className="timestamp">{message.id}</div>
             <div className="username">{message.username}</div>
+            {/* <div className="timestamp">{message.id}</div> */}
             <div className="timestamp">{message.timestamp}</div>
             <div className="text">{message.text}</div>
         </div>
@@ -75,10 +76,10 @@ export class Chat extends Component<any>{
             </div>
             {this.props.user_list && this.props.user_list.length && 
                 <ul className="list-unstyled user-list">
-                    {this.props.user_list.map((username: string, i: number) => <li key={`${username}_${i}`} className="user d-block badge badge-primary">{username}</li>)}
+                    {this.props.user_list.map((username: string, i: number) => <li key={`${username}_${i}`} className={"user user-"+(username===this.props.user.username ? 'local' : 'remote')+" d-block badge"}>{username}</li>)}
                 </ul>
             }
-            {this.state.new_messages && <div id="new-messages-icon"><div className="alert alert-primary" role="alert">NEW MESSAGES!</div></div>}
+            {this.state.new_messages && <div id="new-messages"><SVG className="new-messages-icon" src="images/message.svg" alt="Message" /> New messages!</div>}
             <div id="chat-input-container">
                 <div className="container">
                     <div className="row">
