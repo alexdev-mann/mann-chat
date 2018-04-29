@@ -2,16 +2,25 @@
 @import "../common";
 @import "~bootstrap/scss/functions";
 
+
+body{
+    background-image: url(https://source.unsplash.com/random/1280x1024);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
 #root{
     min-height: 100vh;
     height: 100vh;
+    overflow-y: scroll;
 }
 #login-container{
     display: flex;
     height: 100vh;
 }
 #login-container > .row{
-    flex: 1;   
+    flex: 1;
 }
 
 #chat-view-container{
@@ -57,13 +66,13 @@
 .message{
     display: flex;
     flex-direction: row;
+    color: black;
 }
 .message-content .username{
     font-weight: bold;
-    color: black;
 }
 .message-content .timestamp{
-    color: grey;
+    color: darkslategray;
     font-size: .6rem;
 }
 
@@ -79,21 +88,20 @@
 }
 .message-content{
     width: 70%;
-    background-color: lightgrey;
     padding: 1rem;
     margin: 1rem;
     border-radius: .7rem;
 }
 .message.local .message-content{
-    background-color: rgba(theme-color('alt'), .3)
+    background-color: rgba(theme-color('alt'), .8);
 }
 .message.remote .message-content{
-    background-color: rgba(theme-color('primary'), .3)
+    background-color: rgba(theme-color('primary'), .8);
 }
 .message.from-server .message-content{
     width: 100%;
-    background-color: rgba(#eee, .3);
-    color: darkgray
+    background-color: rgba(#eee, .8);
+    color: $body-color;
 }
 .message.from-server .message-content .username, .message.from-server .message-content .timestamp{
     display: none;

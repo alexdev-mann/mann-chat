@@ -3,26 +3,12 @@ import { connect, Dispatch } from 'react-redux'
 import Component from '../_engine/components/Component'
 import Input from '../_engine/components/Input'
 import * as actions from '../actions/'
-import * as constants from '../constants/'
-import socket from '../_engine/modules/socket'
-const uuidv1 = require('uuid/v1')
+import chat from '../modules/chat'
 
 class ChatBox extends Component<any>{
     filename: 'components/ChatBox.tsx'
     state: any = {}
     form_ref: any = React.createRef()
-
-    static createMessage = (text: string, username: string) => {
-        const id = uuidv1()
-        return { text, id, username }
-    }
-    static sendMessage = (text: string, username: string) => {
-        return new Promise((resolve: any, reject: any) => {
-            const message = ChatBox.createMessage(text, username)
-            socket.post({ cmd: constants.SEND_MESSAGE, params: message })
-            .then((response: any) => resolve(message))
-        })
-    }
     
     onChange = (text: string) => {
         (typeof text !== 'string' && console.error(this.filename+'.onChange(): param must be a string, it is actually', typeof text, text))
@@ -31,7 +17,7 @@ class ChatBox extends Component<any>{
 
     onSubmit = (e: any) => {
         e.preventDefault()
-        this.state.text && ChatBox.sendMessage(this.state.text, this.props.user.username)
+        this.state.text && chat.send_message({ text: this.state.text, username: this.props.user.username })
         .then((message: any) => {
             this.props.dispatch_message(message)
             this.form_ref.current && this.form_ref.current.reset()
