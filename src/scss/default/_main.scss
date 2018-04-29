@@ -49,9 +49,9 @@ body{
     left: 1rem;
     width: 20px;
     cursor: pointer;
-    opacity: .85;
+    opacity: .7;
 }
-#change-background:hover{
+#change-background-btn:hover{
     opacity: 1;
 }
 
@@ -65,8 +65,8 @@ body{
 
 .user-list{
     position: fixed;
-    top: 2rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
 }
 .user-list > .user {
     margin-bottom: .2rem;
