@@ -1,8 +1,8 @@
 {
-  "name": "mann-chat-server",
+  "name": "Mann-chat",
   "version": "0.1.0",
   "description": "Simple chat server",
-  "author": "Alex Deveaux",
+  "author": "Alex Dev",
   "license": "ISC",
   "main": "server.js",
   "scripts": {

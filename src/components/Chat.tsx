@@ -76,7 +76,7 @@ export class Chat extends Component<any>{
             </div>
             {this.props.user_list && this.props.user_list.length && 
                 <ul className="list-unstyled user-list">
-                    {this.props.user_list.map((username: string, i: number) => <li key={`${username}_${i}`} className={"user user-"+(username===this.props.user.username ? 'local' : 'remote')+" d-block badge"}>{username}</li>)}
+                    {this.props.user_list.map((username: string, i: number) => <li key={`${username}_${i}`} className={"user user-"+(username===this.props.user.username ? 'local' : 'remote')+" d-block badge"}>{(username||'Anonymous')}</li>)}
                 </ul>
             }
             {this.state.new_messages && <div id="new-messages"><SVG className="new-messages-icon" src="images/message.svg" alt="Message" /> New messages!</div>}

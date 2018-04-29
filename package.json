@@ -1,6 +1,8 @@
 {
-  "name": "mann",
+  "name": "Mann-chat",
   "version": "0.1.0",
+  "author": "Alex Dev",
+  "license": "ISC",
   "private": true,
   "dependencies": {
     "@types/date-fns": "^2.6.0",
@@ -74,7 +76,9 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js & npm start --prefix ./server",
+    "dev": "node scripts/start.js",
+    "server": "npm start --prefix ./server",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "ui-test": "cd ./tests && node ./index.js"

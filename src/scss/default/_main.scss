@@ -26,15 +26,21 @@ body{
     flex: 1;
 }
 
-
-
-
 // -----------------------------------------------------------------------------
 // Main chat UI
 // -----------------------------------------------------------------------------
 #chat-view-container{
     width: 100%;
-    padding-bottom: 6rem;
+    padding-bottom: $footer-height;
+}
+
+#chat-input-container{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: $footer-height;
+    padding-top: 2rem;
+    background-color: theme-color('alt');
 }
 
 #app-info{
@@ -74,17 +80,12 @@ body{
     display: inline-block;
     vertical-align: middle;
 }
+
+
 // -----------------------------------------------------------------------------
 // Chat elements
 // -----------------------------------------------------------------------------
-#chat-input-container{
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    height: 6rem;
-    padding-top: 2rem;
-    background-color: theme-color('alt');
-}
+
 #chat-input{
     background-color:rgba(white, 0.8);
     padding: .3rem;

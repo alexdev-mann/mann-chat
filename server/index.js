@@ -70,7 +70,7 @@ io.on('connection', function (socket) {
         if(req.cmd){
             switch(true){
                 case (req.cmd === 'GET_USER_LIST'):
-                console.log(socket.username, 'would like to get the list of users')
+                console.log((socket.username || 'Anonymous'), 'would like to get the list of users')
                 callback({ success: true, data: app.socket.get_user_name_array(io.sockets.sockets) })
                 break
                 case (req.cmd === 'GLOBALS'):
