@@ -13,7 +13,7 @@ const form_definition = [
  /**
   * No real login for the moment, just taking username
   */
-export default class Login extends Component<any>{
+export class Login extends Component<any>{
     filename: string = 'components/Login.tsx'
 
     constructor(props: any){
