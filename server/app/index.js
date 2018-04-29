@@ -37,7 +37,7 @@ const app = {
         get_user_name_array(sockets){
             if(!sockets) return []
             let value = []
-            Object.keys(sockets).map((key) => { value.push(sockets[key].username) })
+            Object.keys(sockets).map((key) => { sockets[key].username && value.push(sockets[key].username) })
             return value
         }
     }

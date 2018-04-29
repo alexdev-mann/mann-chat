@@ -20,6 +20,5 @@
     "qs": "^6.5.1",
     "socket.io": "^2.0.4"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
