@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Login from './Login'
+import Login from './LoginContainer'
 import Chat from './Chat'
 import Route from '../_engine/components/Route'
 import { Switch } from 'react-router-dom'
