@@ -5,6 +5,8 @@ import Input from '../_engine/components/Input'
 import * as actions from '../actions/'
 import chat from '../modules/chat'
 
+import { GlobalsContext } from '../_engine/components/Globals'
+
 class ChatBox extends Component<any>{
     filename: 'components/ChatBox.tsx'
     state: any = {}
@@ -29,12 +31,17 @@ class ChatBox extends Component<any>{
     }
 
     render(){
-        return <form ref={this.form_ref} onSubmit={this.onSubmit} onReset={this.onReset}>
-            <div id="chat-input-group" className="input-group chat-input-group w-100">
-                <Input id="chat-input" autoFocus={true} onChange={this.onChange} value={this.state.value} />
-                <div className="input-group-append"><button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Send</button></div>
-            </div>
-        </form>
+        return <GlobalsContext.Consumer>{ (globals: any) => (
+            <>
+                <form ref={this.form_ref} onSubmit={this.onSubmit} onReset={this.onReset}>
+                    <div id="chat-input-group" className="input-group chat-input-group w-100">
+                        <Input id="chat-input" autoFocus={true} onChange={this.onChange} value={this.state.value} />
+                        <div className="input-group-append"><button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Send</button></div>
+                    </div>
+                </form>
+                <div id="app-info">{globals.server_name} v.{globals.version}</div>
+            </>
+        )}</GlobalsContext.Consumer>
     }
 }
 
