@@ -1,9 +1,7 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
+
 import Component from '../_engine/components/Component'
 import Input from '../_engine/components/Input'
-import * as actions from '../actions/'
-import { history } from '../store/'
 
 /**
  * Small form definition structure, should be abstracted in a <Form /> component
@@ -15,7 +13,7 @@ const form_definition = [
  /**
   * No real login for the moment, just taking username
   */
-class Login extends Component<any>{
+export default class Login extends Component<any>{
     filename: string = 'components/Login.tsx'
 
     constructor(props: any){
@@ -56,7 +54,7 @@ class Login extends Component<any>{
 
         const next = () => {
             this.props.set_user(this.state.input_value_username)
-            history.push('/chat')
+            this.props.history && this.props.history.push('/chat')
         }
 
         this.checkFormValidity()
@@ -68,26 +66,10 @@ class Login extends Component<any>{
             <div className="row align-items-center">
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={this.onSubmit}>
-                        <Input onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-outline-secondary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
+                        <Input className="form-control" onChange={this.onUsernameChange} containerClassName="chat-input-group" defaultValue={this.props.user && this.props.user.username} placeholder="Enter your username" error={this.state.input_error_username} append={<button className="btn btn-primary" type="button" onClick={this.onSubmit}>Chat now!</button>} />
                     </form>
                 </div>
             </div>
         </div>
     }
 }
-
-export function mapStateToProps({ user }: any) {
-    return { user }
-}
-
-export function mapDispatchToProps(dispatch: Dispatch<any>) {
-    return {
-        set_user: (username: any) => { dispatch(actions.set_user( { username } )) },
-    };
-}
-
-export function mergeProps(stateProps: object, dispatchProps: object, ownProps: object) {
-	return Object.assign({}, ownProps, stateProps, dispatchProps)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Login)
