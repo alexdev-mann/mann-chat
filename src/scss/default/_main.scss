@@ -2,19 +2,22 @@
 @import "../common";
 @import "~bootstrap/scss/functions";
 
-
 body{
     background-image: url(https://source.unsplash.com/random/1280x1024);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
 }
+
 #root{
     min-height: 100vh;
     height: 100vh;
     overflow-y: scroll;
 }
+
+// -----------------------------------------------------------------------------
+// Login page
+// -----------------------------------------------------------------------------
 #login-container{
     display: flex;
     height: 100vh;
@@ -23,10 +26,43 @@ body{
     flex: 1;
 }
 
+
+
+
+// -----------------------------------------------------------------------------
+// Main chat UI
+// -----------------------------------------------------------------------------
 #chat-view-container{
     width: 100%;
     padding-bottom: 6rem;
 }
+
+#app-info{
+    position: fixed;
+    bottom: .5rem;
+    right: .5rem;
+    font-size: .7rem;
+    opacity: .2;
+}
+
+.user-list{
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+}
+.user-list > .user {
+    margin-bottom: .2rem;
+}
+
+#new-messages-icon{
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+}
+
+// -----------------------------------------------------------------------------
+// Chat elements
+// -----------------------------------------------------------------------------
 #chat-input-container{
     width: 100%;
     position: fixed;
@@ -48,21 +84,9 @@ body{
     border-bottom-right-radius: $input-border-radius;
 }
 
-#new-messages-icon{
-    position: fixed;
-    bottom: 7rem;
-    right: 2rem;
-}
-.user-list{
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-}
-.user-list > .user {
-    margin-bottom: .2rem;
-}
-
+// -----------------------------------------------------------------------------
 // Messages
+// -----------------------------------------------------------------------------
 .message{
     display: flex;
     flex-direction: row;
