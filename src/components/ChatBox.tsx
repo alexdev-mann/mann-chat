@@ -12,9 +12,9 @@ class ChatBox extends Component<any>{
     state: any = {}
     form_ref: any = React.createRef()
     
-    onChange = (text: string) => {
-        (typeof text !== 'string' && console.error(this.filename+'.onChange(): param must be a string, it is actually', typeof text, text))
-        this.setState({ text })
+    onChange = ({ name, value }: { name: string, value: string }) => {
+        (typeof value !== 'string' && console.error(this.filename+'.onChange(): param.value must be a string, it is actually', typeof value, value))
+        this.setState({ text: value })
     }
 
     onSubmit = (e: any) => {
@@ -35,7 +35,7 @@ class ChatBox extends Component<any>{
             <>
                 <form ref={this.form_ref} onSubmit={this.onSubmit} onReset={this.onReset}>
                     <div id="chat-input-group" className="input-group chat-input-group w-100">
-                        <Input id="chat-input" autoFocus={true} onChange={this.onChange} value={this.state.value} />
+                        <Input id="chat-input" name="chatbox" autoFocus={true} onChange={this.onChange} value={this.state.value} />
                         <div className="input-group-append"><button className="btn btn-primary" type="button" onClick={this.onSubmit}>Send</button></div>
                     </div>
                 </form>

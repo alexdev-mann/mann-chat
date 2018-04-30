@@ -19,21 +19,14 @@ export const Message = (props: any) => {
 
 const messages_container: any = document.querySelector("#root") || {}
 
-// Passed this as param because of Typescript
-export const checkScroll = function(this: any) {
-    if((messages_container.offsetHeight + messages_container.scrollTop) >= messages_container.scrollHeight){
-        this.setState({ new_messages: false })
-        messages_container.removeEventListener('scroll', this.checkScrollRef)
-    }
-}
-
 export class Chat extends Component<any>{
     state:any = {}
-    checkScrollRef: any
 
-    constructor(props: any){
-        super(props)
-        this.checkScrollRef = checkScroll.bind(this)
+    checkScroll = () => {
+        if((messages_container.offsetHeight + messages_container.scrollTop) >= messages_container.scrollHeight){
+            this.setState({ new_messages: false })
+            messages_container.removeEventListener('scroll', this.checkScroll)
+        }
     }
 
     componentDidMount(){
@@ -58,7 +51,7 @@ export class Chat extends Component<any>{
             if(lastMessageIsMine() || scrollToBottom){
                 messages_container.scrollTo(0, messages_container.scrollHeight)
             } else {
-                this.setState({ new_messages: true }, () => messages_container.addEventListener('scroll', this.checkScrollRef))
+                this.setState({ new_messages: true }, () => messages_container.addEventListener('scroll', this.checkScroll))
             }
         }
     }

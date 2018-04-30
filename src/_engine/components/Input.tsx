@@ -9,7 +9,7 @@ class Input extends React.Component<any, any>{
 
     onChange = (e: any) => {
         const value = e.target.value
-        this.props.onChange && typeof this.props.onChange==='function' && this.props.onChange(value)
+        this.props.onChange && typeof this.props.onChange==='function' && this.props.onChange({ name: this.props.name, value })
     }
 
     render(){
