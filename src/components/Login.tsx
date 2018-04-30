@@ -16,17 +16,15 @@ const form_definition = [
   */
 export class Login extends Component<any>{
     filename: string = 'components/Login.tsx'
+    state: any = {}
 
-    constructor(props: any){
-        super(props)
-        let state: any = {}
-        // manual init because no real <Form /> component yet, no need for constructor otherwise
-        if(this.props.user && this.props.user.username){
-            state.input_value_username = this.props.user.username
+    static getDerivedStateFromProps(nextProps: any, prevState: any){
+        if(nextProps.user && nextProps.user.username && !prevState.input_value_username){
+            return { input_value_username: nextProps.user.username }
         }
-        this.state = state
+        return null
     }
-    
+
     onUsernameChange = (input_value_username: string) => {
         this.setState({ input_value_username }, () => this.checkFormValidity())
     }
