@@ -19,6 +19,28 @@ export const Message = (props: any) => {
 
 const messages_container: any = document.querySelector("#root") || {}
 
+const isMessageVisible = (elmt_coords: any) => {
+    return (
+        elmt_coords.top < messages_container.offsetHeight && 
+        elmt_coords.bottom >= -(elmt_coords.height)
+    )
+}
+const getVisibleMessages = () => Array.prototype.slice.call(document.querySelectorAll(".message-list .message")).filter((elmt: any) => isMessageVisible(elmt.getBoundingClientRect()))
+
+const First = (offsetY: number) => { return {
+    transformOrigin: 'top left',
+    transform: `translateY(${offsetY}px)`,
+} }
+const Last = {
+    transformOrigin: 'top left',
+    transform: 'none',
+}
+const AnimationSettings = {
+    duration: config.NEW_MESSAGE_TRANSITION_TIME,
+    easing: 'ease-in-out',
+    fill: 'both'
+}
+
 export class Chat extends Component<any>{
     state:any = {}
 
@@ -47,49 +69,37 @@ export class Chat extends Component<any>{
         const last_message_ref: any = document.querySelector(".message-list .message:last-child")
         if(last_message_ref){
             const last_message_coords = last_message_ref.getBoundingClientRect()
-            const animate_list: boolean = !!(messages_container.offsetHeight < messages_container.scrollHeight)
-            // If the message list fills the window (if there's a scroll), we animate the whole list, otherwise just the last message
-            const target: any = animate_list ? document.querySelectorAll(".message-list .message") : [ last_message_ref ]
-            const offset = Math.min(last_message_coords.height, (messages_container.scrollHeight - messages_container.offsetHeight)) || last_message_coords.height
-            if(target){
-                target.forEach((item: any) => {
-                    if(item && item.animate){
-                        item.animate(
-                        [
-                            {
-                                transformOrigin: 'top left',
-                                transform: `translateY(${offset}px)`,
-                            }, {
-                                transformOrigin: 'top left',
-                                transform: 'none',
-                            }
-                        ],
-                        {
-                            duration: config.NEW_MESSAGE_TRANSITION_TIME,
-                            easing: 'ease-in-out',
-                            fill: 'both'
-                        })
-                    }
-                })
+            // We do animate only if last message is in the view
+            if(isMessageVisible(last_message_coords)){
+                const animate_list: boolean = !!(messages_container.offsetHeight < messages_container.scrollHeight)
+                // If the message list fills the window (if there's a scroll), we animate the whole list, otherwise just the last message
+                const target: any = animate_list ? getVisibleMessages() : [ last_message_ref ]
+                const offsetY = Math.min(last_message_coords.height, (messages_container.scrollHeight - messages_container.offsetHeight)) || last_message_coords.height
+                // The last message has a different animation: opacity
+                const last = target.pop()
+                last.animate && last.animate( [ { ...First(offsetY), opacity: 0 }, { ...Last, opacity: 1 } ], AnimationSettings )
+                if(target){
+                    target.forEach((item: any) => {
+                        if(item && item.animate){
+                            item.animate( [ First(offsetY), Last ], AnimationSettings )
+                        }
+                    })
+                }
             }
         }
     }
 
     componentDidUpdate(prevProps: any, prevState: any, scrollToBottom: boolean){
-        const prevLastMessage = !prevProps.message_stack ? null : (prevProps.message_stack && prevProps.message_stack.length && prevProps.message_stack[prevProps.message_stack.length-1] || null)
         const thisLastMessage = !this.props.message_stack ? null : (this.props.message_stack && this.props.message_stack.length && this.props.message_stack[this.props.message_stack.length-1]|| null)
-        if((!prevLastMessage && thisLastMessage) || prevLastMessage && prevLastMessage.id !== thisLastMessage.id){
-            // has a new message just been added?
-            const new_essage = !!(prevProps.message_stack.length !== this.props.message_stack.length)
-            // are we scrolled down?
-            const must_animate = !!(new_essage && !this.state.unread_messages)
-
+        // Has a new message just been added?
+        const new_message = !!(prevProps.message_stack.length !== this.props.message_stack.length)
+        if(new_message){
             const lastMessageIsMine = () => thisLastMessage.username === this.props.user.username
+            this.animate()
             if(lastMessageIsMine() || scrollToBottom){
                 messages_container.scrollTo(0, messages_container.scrollHeight)
-                must_animate && this.animate()
             } else {
-                this.setState({ unread_messages: true }, () => { messages_container.addEventListener('scroll', this.checkScroll); must_animate && this.animate() })
+                this.setState({ unread_messages: true }, () => { messages_container.addEventListener('scroll', this.checkScroll) })
             }
         }
     }
